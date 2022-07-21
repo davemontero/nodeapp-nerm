@@ -1,4 +1,3 @@
-import jwt from 'jsonwebtoken'
 import { User } from '../models/Users.js'
 import { generateToken } from '../utils/tokenManager.js'
 
@@ -29,7 +28,10 @@ export const login = async (req, res) => {
 
         // Generación de token
         const { token, expiresIn } = generateToken(user.id)
-
+        res.cookie("token", token, {
+            httpOnly: true
+        })
+            
         return res.json({ token, expiresIn })
     } catch (error) {
         console.log(error)

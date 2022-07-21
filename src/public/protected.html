@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protegida</title>
+</head>
+<body>
+    <h1>Ruta protegida</h1>
+    <div>
+        <h2 id="email">Email: </h2>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', async e => {
+            const token = '=???'
+            // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MmQzYzkyMDE5NzEyYzE4MzE0MWY3NDkiLCJpYXQiOjE2NTgzODc4MDcsImV4cCI6MTY1ODM4ODcwN30.75SQh6m9lmqnXWNMTakeYQPr6G7nkwx1O1lrgIcQkrc'
+            const res = await fetch('/api/v1/auth/protected', {
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            console.log(res.ok, res.status)
+            const data = await res.json()
+            console.log(data)
+            
+            if (res.ok) document.getElementById('email').textContent = data.email
+        })
+    </script>
+</body>
+</html>
